@@ -30,7 +30,7 @@ func CreateNameSpace(Name string) (string, error) {
 			Name: Name,
 		},
 	}
-	__, err := ClientSet.CoreV1().Namespaces().Create(context.Background(), nsName, metav1.CreateOptions{})
+	_, err := ClientSet.CoreV1().Namespaces().Create(context.Background(), nsName, metav1.CreateOptions{})
 	if err != nil {
 		log.Fatalf("Error : %v \n", err)
 		return "fail", err
