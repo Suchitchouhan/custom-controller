@@ -1,8 +1,10 @@
 package kcontrollers
 
 import (
+	"bytes"
 	"context"
 	"fmt"
+	"io"
 	"kubecontroller/payloads"
 	"time"
 
@@ -59,6 +61,35 @@ func GetPodList(namespace string) ([]payloads.KPod, error) {
 	return kpod, nil
 }
 
-// func GetDetails() {
+func GetPodDetails(namespace string, podname string) (*v1.Pod, error) {
 
-// }
+	pod, err := ClientSet.CoreV1().Pods(namespace).Get(context.Background(), podname, metav1.GetOptions{})
+	if err != nil {
+		return pod, err
+	}
+
+	return pod, nil
+
+}
+
+func GetPodLogs(namespace string, podname string) (string, error) {
+	podLogOpts := v1.PodLogOptions{}
+	req := ClientSet.CoreV1().Pods(namespace).GetLogs(podname, &podLogOpts)
+	podLogs, err := req.Stream(context.Background())
+	if err != nil {
+		return "error in opening stream", err
+	}
+	defer podLogs.Close()
+
+	buf := new(bytes.Buffer)
+	_, err = io.Copy(buf, podLogs)
+	if err != nil {
+		return "error in copy information from podLogs to buf", err
+	}
+	str := buf.String()
+
+	return str, nil
+}
+
+
+
