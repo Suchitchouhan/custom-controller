@@ -3,7 +3,9 @@ package kcontrollers
 import (
 	"context"
 	"kubecontroller/payloads"
+	"log"
 
+	appsv1 "k8s.io/api/apps/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -26,10 +28,19 @@ func GetReplicaset(NameSpace string) ([]payloads.KReplicaset, error) {
 		prk.AvailableReplicas = int(value.Status.AvailableReplicas)
 		prk.ObservedGeneration = int(value.Status.ObservedGeneration)
 		final_KReplicaset = append(final_KReplicaset, prk)
-
 	}
 	if err != nil {
+		log.Fatalf("Error : %v \n", err)
 		return final_KReplicaset, err
 	}
 	return final_KReplicaset, nil
+}
+
+func GetReplicasetDetails(NameSpace string, ReplicaName string) (*appsv1.ReplicaSet, error) {
+	RS, err := ClientSet.AppsV1().ReplicaSets(NameSpace).Get(context.Background(), ReplicaName, metav1.GetOptions{})
+	if err != nil {
+		log.Fatalf("Error : %v \n", err)
+		return RS, err
+	}
+	return RS, nil
 }

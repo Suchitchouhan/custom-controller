@@ -17,3 +17,8 @@ type DeploymentInputPayload struct {
 	NameSpace      string `json:"NameSpace" binding:"required"`
 	DeploymentName string `json:"DeploymentName" binding:"required"`
 }
+
+type ReplicaSetInputPayload struct {
+	NameSpace   string `json:"NameSpace" binding:"required"`
+	ReplicaName string `json:"ReplicaName" binding:"required"`
+}

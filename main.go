@@ -32,6 +32,7 @@ func main() {
 	r.POST("/GetDeploymentsAPI", controllers.GetDeploymentsAPI)
 	r.POST("/GetDeploymentDetailsAPI", controllers.GetDeploymentDetailsAPI)
 	r.POST("/GetReplicasets", controllers.GetReplicasets)
+	r.POST("/GetReplicasetDetails", controllers.GetReplicasetDetails)
 	//r.GET("/GetNodeMetricesResourceAPI", controllers.GetNodeMetricesResourceAPI)
 	r.Run(os.Getenv("HOST") + ":" + os.Getenv("PORT"))
 

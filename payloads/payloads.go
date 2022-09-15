@@ -1,6 +1,7 @@
 package payloads
 
 import (
+	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -25,21 +26,22 @@ type KPod struct {
 }
 
 type KNode struct {
-	Name              string            `json:"name"`
-	UID               string            `json:"uid"`
-	ResourceVersion   string            `json:"resourceVersion"`
-	CreationTimestamp metav1.Time       `json:"creationTimestamp"`
-	Labels            map[string]string `json:"labels"`
-	MachineID               string    `json:"machineID"`
-	SystemUUID              string    `json:"systemUUID"`
-	BootID                  string    `json:"bootID"`
-	KernelVersion           string    `json:"kernelVersion"`
-	OsImage                 string    `json:"osImage"`
-	ContainerRuntimeVersion string    `json:"containerRuntimeVersion"`
-	KubeletVersion          string    `json:"kubeletVersion"`
-	KubeProxyVersion        string    `json:"kubeProxyVersion"`
-	OperatingSystem         string    `json:"operatingSystem"`
-	Architecture            string    `json:"architecture"`
+	Name                    string            `json:"name"`
+	UID                     string            `json:"uid"`
+	ResourceVersion         string            `json:"resourceVersion"`
+	CreationTimestamp       metav1.Time       `json:"creationTimestamp"`
+	Labels                  map[string]string `json:"labels"`
+	MachineID               string            `json:"machineID"`
+	SystemUUID              string            `json:"systemUUID"`
+	BootID                  string            `json:"bootID"`
+	KernelVersion           string            `json:"kernelVersion"`
+	OsImage                 string            `json:"osImage"`
+	ContainerRuntimeVersion string            `json:"containerRuntimeVersion"`
+	KubeletVersion          string            `json:"kubeletVersion"`
+	KubeProxyVersion        string            `json:"kubeProxyVersion"`
+	OperatingSystem         string            `json:"operatingSystem"`
+	Architecture            string            `json:"architecture"`
+	Addresses               []v1.NodeAddress  `json:"addresses"`
 }
 
 type Kdeployment struct {

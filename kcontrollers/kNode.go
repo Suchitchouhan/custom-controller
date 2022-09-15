@@ -21,6 +21,7 @@ func GetNodes() ([]payloads.KNode, error) {
 		kn.Name = value.Name
 		kn.UID = string(value.UID)
 		kn.ResourceVersion = value.ResourceVersion
+		kn.CreationTimestamp = value.CreationTimestamp
 		kn.Labels = value.Labels
 		kn.MachineID = value.Status.NodeInfo.MachineID
 		kn.SystemUUID = value.Status.NodeInfo.SystemUUID
@@ -31,7 +32,7 @@ func GetNodes() ([]payloads.KNode, error) {
 		kn.KubeProxyVersion = value.Status.NodeInfo.KubeProxyVersion
 		kn.OperatingSystem = value.Status.NodeInfo.OperatingSystem
 		kn.Architecture = value.Status.NodeInfo.Architecture
-
+		kn.Addresses = value.Status.Addresses
 		KNode = append(KNode, kn)
 	}
 	return KNode, nil
