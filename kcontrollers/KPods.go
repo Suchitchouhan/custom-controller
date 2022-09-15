@@ -49,6 +49,7 @@ func GetPodList(namespace string) ([]payloads.KPod, error) {
 		pk.Status = fmt.Sprint(Status(&value))
 		pk.APIVersion = fmt.Sprint(value.APIVersion)
 		pk.CreationTimestamp = fmt.Sprint(value.CreationTimestamp)
+		pk.Labels = value.Labels
 		pk.HostIP = fmt.Sprint(value.Status.HostIP)
 		pk.PodIP = fmt.Sprint(value.Status.PodIP)
 		pk.Message = fmt.Sprint(value.Status.Message)
@@ -90,6 +91,3 @@ func GetPodLogs(namespace string, podname string) (string, error) {
 
 	return str, nil
 }
-
-
-

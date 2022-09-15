@@ -12,3 +12,8 @@ type NameSpaceInputPayload struct {
 type NodeNameInputPayload struct {
 	NodeName string `json:"NodeName" binding:"required"`
 }
+
+type DeploymentInputPayload struct {
+	NameSpace      string `json:"NameSpace" binding:"required"`
+	DeploymentName string `json:"DeploymentName" binding:"required"`
+}

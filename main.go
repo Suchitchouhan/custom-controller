@@ -5,13 +5,20 @@ import (
 
 	"kubecontroller/controllers"
 	"kubecontroller/kcontrollers"
+	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 	// metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 func main() {
-	kcontrollers.SetupConfig()
+	err := godotenv.Load(".env")
+
+	if err != nil {
+		panic("Error loading .env file")
+	}
+	kcontrollers.SetupConfig(os.Getenv("KUBECONFIG"))
 
 	r := gin.Default()
 	r.Use(gin.Logger())
@@ -22,7 +29,11 @@ func main() {
 	r.POST("/GetPodListAPI", controllers.GetPodListAPI)
 	r.POST("/GetPodDetailsAPI", controllers.GetPodDetailsAPI)
 	r.POST("/GetPodLogsAPI", controllers.GetPodLogsAPI)
-	r.Run("0.0.0.0:8000")
+	r.POST("/GetDeploymentsAPI", controllers.GetDeploymentsAPI)
+	r.POST("/GetDeploymentDetailsAPI", controllers.GetDeploymentDetailsAPI)
+	r.POST("/GetReplicasets", controllers.GetReplicasets)
+	//r.GET("/GetNodeMetricesResourceAPI", controllers.GetNodeMetricesResourceAPI)
+	r.Run(os.Getenv("HOST") + ":" + os.Getenv("PORT"))
 
 }
 
