@@ -36,6 +36,10 @@ func main() {
 	r.POST("/GetReplicasetDetailsAPI", controllers.GetReplicasetDetailsAPI)
 	r.POST("/GetstatefulSetsAPI", controllers.GetstatefulSetsAPI)
 	r.POST("/GetstatefulSetDetailsAPI", controllers.GetstatefulSetDetailsAPI)
+	r.POST("/GetIngressAPI", controllers.GetIngressAPI)
+	r.POST("/GetIngressClassAPI", controllers.GetIngressClassAPI)
+	r.POST("/GetServicesAPI", controllers.GetServicesAPI)
+	r.POST("/GetServiceDetailsAPI", controllers.GetServiceDetailsAPI)
 	//r.GET("/GetNodeMetricesResourceAPI", controllers.GetNodeMetricesResourceAPI)
 	r.Run(os.Getenv("HOST") + ":" + os.Getenv("PORT"))
 

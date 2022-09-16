@@ -27,3 +27,8 @@ type StateFulSetInputPayload struct {
 	NameSpace    string `json:"NameSpace" binding:"required"`
 	StatefulName string `json:"StatefulName" binding:"required"`
 }
+
+type ServiceInputPayload struct {
+	NameSpace   string `json:"NameSpace" binding:"required"`
+	ServiceName string `json:"ServiceName" binding:"required"`
+}
