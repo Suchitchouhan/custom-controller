@@ -12,15 +12,15 @@ import (
 func GetDeploymentsAPI(c *gin.Context) {
 	var PodInputPayload payloads.NameSpaceInputPayload
 	if err := c.ShouldBindJSON(&PodInputPayload); err != nil {
-		log.Fatalln(err)
+		log.Println(err)
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 	NS, err := kcontrollers.GetDeployments(PodInputPayload.NameSpace)
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error":   err,
+			"error":   err.Error(),
 			"message": "Failed to Get ",
 		})
 		return
@@ -32,15 +32,15 @@ func GetDeploymentsAPI(c *gin.Context) {
 func GetDeploymentDetailsAPI(c *gin.Context) {
 	var DeploymentInputPayload payloads.DeploymentInputPayload
 	if err := c.ShouldBindJSON(&DeploymentInputPayload); err != nil {
-		log.Fatalln(err)
+		log.Println(err)
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 	NS, err := kcontrollers.GetDeploymentDetails(DeploymentInputPayload.NameSpace, DeploymentInputPayload.DeploymentName)
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error":   err,
+			"error":   err.Error(),
 			"message": "Failed to Get",
 		})
 		return

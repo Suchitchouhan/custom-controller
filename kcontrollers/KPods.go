@@ -35,6 +35,10 @@ func GetPodList(namespace string) ([]payloads.KPod, error) {
 	var kpod []payloads.KPod
 	pods, err := ClientSet.CoreV1().Pods(namespace).List(context.TODO(), metav1.ListOptions{})
 	// fmt.Println(pods.Items)
+	if err != nil {
+		return kpod, err
+	}
+
 	for _, value := range pods.Items {
 
 		// data, _ := json.Marshal(value)
@@ -55,9 +59,6 @@ func GetPodList(namespace string) ([]payloads.KPod, error) {
 		pk.Message = fmt.Sprint(value.Status.Message)
 		kpod = append(kpod, pk)
 	}
-	if err != nil {
-		return kpod, err
-	}
 
 	return kpod, nil
 }
@@ -66,7 +67,7 @@ func GetPodDetails(namespace string, podname string) (*v1.Pod, error) {
 
 	pod, err := ClientSet.CoreV1().Pods(namespace).Get(context.Background(), podname, metav1.GetOptions{})
 	if err != nil {
-		return pod, err
+		return &v1.Pod{}, err
 	}
 
 	return pod, nil

@@ -22,3 +22,8 @@ type ReplicaSetInputPayload struct {
 	NameSpace   string `json:"NameSpace" binding:"required"`
 	ReplicaName string `json:"ReplicaName" binding:"required"`
 }
+
+type StateFulSetInputPayload struct {
+	NameSpace    string `json:"NameSpace" binding:"required"`
+	StatefulName string `json:"StatefulName" binding:"required"`
+}

@@ -12,9 +12,9 @@ import (
 func GetNameSpaceAPI(c *gin.Context) {
 	GetData, err := kcontrollers.GetNameSpace()
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error":   err,
+			"error":   err.Error(),
 			"message": "Failed to upload",
 		})
 		return
@@ -27,15 +27,15 @@ func GetNameSpaceAPI(c *gin.Context) {
 func CreateNameSpaceAPI(c *gin.Context) {
 	var PodInputPayload payloads.NameSpaceInputPayload
 	if err := c.ShouldBindJSON(&PodInputPayload); err != nil {
-		log.Fatalln(err)
+		log.Println(err)
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 	NS, err := kcontrollers.CreateNameSpace(PodInputPayload.NameSpace)
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error":   err,
+			"error":   err.Error(),
 			"message": "Failed to Create",
 		})
 		return
@@ -48,15 +48,15 @@ func CreateNameSpaceAPI(c *gin.Context) {
 func GetPodListAPI(c *gin.Context) {
 	var PodInputPayload payloads.NameSpaceInputPayload
 	if err := c.ShouldBindJSON(&PodInputPayload); err != nil {
-		log.Fatalln(err)
+		log.Println(err)
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 	pods, err := kcontrollers.GetPodList(PodInputPayload.NameSpace)
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error":   err,
+			"error":   err.Error(),
 			"message": "Failed",
 		})
 		return
@@ -68,16 +68,16 @@ func GetPodListAPI(c *gin.Context) {
 func GetPodDetailsAPI(c *gin.Context) {
 	var PodInputPayload payloads.PodInputPayload
 	if err := c.ShouldBindJSON(&PodInputPayload); err != nil {
-		log.Fatalln(err)
+		log.Println(err)
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
 	data, err := kcontrollers.GetPodDetails(PodInputPayload.NameSpace, PodInputPayload.PodName)
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error":   err,
+			"error":   err.Error(),
 			"message": "Failed",
 		})
 		return
@@ -89,16 +89,16 @@ func GetPodDetailsAPI(c *gin.Context) {
 func GetPodLogsAPI(c *gin.Context) {
 	var PodInputPayload payloads.PodInputPayload
 	if err := c.ShouldBindJSON(&PodInputPayload); err != nil {
-		log.Fatalln(err)
+		log.Println(err)
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
 	data, err := kcontrollers.GetPodLogs(PodInputPayload.NameSpace, PodInputPayload.PodName)
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error":   err,
+			"error":   err.Error(),
 			"message": "Failed",
 		})
 		return
@@ -110,9 +110,9 @@ func GetPodLogsAPI(c *gin.Context) {
 func GetNodesAPI(c *gin.Context) {
 	data, err := kcontrollers.GetNodes()
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error":   err,
+			"error":   err.Error(),
 			"message": "Failed",
 		})
 		return
@@ -124,16 +124,16 @@ func GetNodesAPI(c *gin.Context) {
 func GetNodesDetailsAPI(c *gin.Context) {
 	var PodInputPayload payloads.NodeNameInputPayload
 	if err := c.ShouldBindJSON(&PodInputPayload); err != nil {
-		log.Fatalln(err)
+		log.Println(err)
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
 	data, err := kcontrollers.GetNodesDetails(PodInputPayload.NodeName)
 	if err != nil {
-		log.Fatalln(err)
+		log.Println(err)
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error":   err,
+			"error":   err.Error(),
 			"message": "Failed",
 		})
 		return

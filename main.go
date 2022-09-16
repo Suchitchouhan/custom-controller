@@ -22,6 +22,7 @@ func main() {
 
 	r := gin.Default()
 	r.Use(gin.Logger())
+	r.Use(gin.Recovery())
 	r.GET("/GetNodesAPI", controllers.GetNodesAPI)
 	r.POST("/GetNodesDetailsAPI", controllers.GetNodesDetailsAPI)
 	r.GET("/GetNameSpaceAPI", controllers.GetNameSpaceAPI)
@@ -31,8 +32,10 @@ func main() {
 	r.POST("/GetPodLogsAPI", controllers.GetPodLogsAPI)
 	r.POST("/GetDeploymentsAPI", controllers.GetDeploymentsAPI)
 	r.POST("/GetDeploymentDetailsAPI", controllers.GetDeploymentDetailsAPI)
-	r.POST("/GetReplicasets", controllers.GetReplicasets)
-	r.POST("/GetReplicasetDetails", controllers.GetReplicasetDetails)
+	r.POST("/GetReplicasetsAPI", controllers.GetReplicasetsAPI)
+	r.POST("/GetReplicasetDetailsAPI", controllers.GetReplicasetDetailsAPI)
+	r.POST("/GetstatefulSetsAPI", controllers.GetstatefulSetsAPI)
+	r.POST("/GetstatefulSetDetailsAPI", controllers.GetstatefulSetDetailsAPI)
 	//r.GET("/GetNodeMetricesResourceAPI", controllers.GetNodeMetricesResourceAPI)
 	r.Run(os.Getenv("HOST") + ":" + os.Getenv("PORT"))
 

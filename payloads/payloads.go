@@ -73,3 +73,22 @@ type KReplicaset struct {
 	AvailableReplicas    int               `json:"availableReplicas"`
 	ObservedGeneration   int               `json:"observedGeneration"`
 }
+
+type KStateFulSets struct {
+	Name               string            `json:"name"`
+	Namespace          string            `json:"namespace"`
+	UID                string            `json:"uid"`
+	ResourceVersion    string            `json:"resourceVersion"`
+	Generation         int               `json:"generation"`
+	CreationTimestamp  metav1.Time       `json:"creationTimestamp"`
+	Labels             map[string]string `json:"labels"`
+	ObservedGeneration int               `json:"observedGeneration"`
+	Replicas           int               `json:"replicas"`
+	ReadyReplicas      int               `json:"readyReplicas"`
+	CurrentReplicas    int               `json:"currentReplicas"`
+	UpdatedReplicas    int               `json:"updatedReplicas"`
+	CurrentRevision    string            `json:"currentRevision"`
+	UpdateRevision     string            `json:"updateRevision"`
+	CollisionCount     int               `json:"collisionCount"`
+	AvailableReplicas  int               `json:"availableReplicas"`
+}

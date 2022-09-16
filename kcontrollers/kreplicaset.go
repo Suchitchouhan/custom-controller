@@ -12,6 +12,10 @@ import (
 func GetReplicaset(NameSpace string) ([]payloads.KReplicaset, error) {
 	RS, err := ClientSet.AppsV1().ReplicaSets(NameSpace).List(context.Background(), metav1.ListOptions{})
 	var final_KReplicaset []payloads.KReplicaset
+	if err != nil {
+		log.Fatalf("Error : %v \n", err)
+		return final_KReplicaset, err
+	}
 	for _, value := range RS.Items {
 
 		prk := payloads.KReplicaset{}
@@ -29,10 +33,7 @@ func GetReplicaset(NameSpace string) ([]payloads.KReplicaset, error) {
 		prk.ObservedGeneration = int(value.Status.ObservedGeneration)
 		final_KReplicaset = append(final_KReplicaset, prk)
 	}
-	if err != nil {
-		log.Fatalf("Error : %v \n", err)
-		return final_KReplicaset, err
-	}
+
 	return final_KReplicaset, nil
 }
 
@@ -40,7 +41,7 @@ func GetReplicasetDetails(NameSpace string, ReplicaName string) (*appsv1.Replica
 	RS, err := ClientSet.AppsV1().ReplicaSets(NameSpace).Get(context.Background(), ReplicaName, metav1.GetOptions{})
 	if err != nil {
 		log.Fatalf("Error : %v \n", err)
-		return RS, err
+		return &appsv1.ReplicaSet{}, err
 	}
 	return RS, nil
 }
