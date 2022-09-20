@@ -11,6 +11,8 @@ import (
 	// corev1 "k8s.io/api/core/v1"
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/metrics/pkg/apis/metrics/v1beta1"
+	//metrics "k8s.io/metrics/pkg/client/clientset/versioned"
 	// "k8s.io/client-go/kubernetes"
 )
 
@@ -91,4 +93,12 @@ func GetPodLogs(namespace string, podname string) (string, error) {
 	str := buf.String()
 
 	return str, nil
+}
+
+func GetPodMetrice(namespace string) (*v1beta1.PodMetricsList, error) {
+	PM, err := MC.MetricsV1beta1().PodMetricses(namespace).List(context.TODO(), metav1.ListOptions{})
+	if err != nil {
+		return &v1beta1.PodMetricsList{}, err
+	}
+	return PM, err
 }

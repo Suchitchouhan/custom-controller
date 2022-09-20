@@ -40,6 +40,8 @@ func main() {
 	r.POST("/GetIngressClassAPI", controllers.GetIngressClassAPI)
 	r.POST("/GetServicesAPI", controllers.GetServicesAPI)
 	r.POST("/GetServiceDetailsAPI", controllers.GetServiceDetailsAPI)
+	r.POST("/GetPodMetriceAPI", controllers.GetPodMetriceAPI)
+	r.GET("/GetNodeMetrics", controllers.GetNodeMetrics)
 	//r.GET("/GetNodeMetricesResourceAPI", controllers.GetNodeMetricesResourceAPI)
 	r.Run(os.Getenv("HOST") + ":" + os.Getenv("PORT"))
 

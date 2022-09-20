@@ -7,6 +7,7 @@ import (
 
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/metrics/pkg/apis/metrics/v1beta1"
 )
 
 func GetNodes() ([]payloads.KNode, error) {
@@ -48,12 +49,12 @@ func GetNodesDetails(Nodename string) (*v1.Node, error) {
 	return ns, nil
 }
 
-//func GetNodeMetricesResource() (*v1beta1.NodeMetricsList, error) {
-//	ns, err := MC.MetricsV1beta1().NodeMetricses().List(context.Background(), metav1.ListOptions{})
-//	if err != nil {
-//		log.Fatalf("Error : %v \n", err)
-//		return &v1beta1.NodeMetricsList{}, err
-//	}
+func GetNodeMetricesResource() (*v1beta1.NodeMetricsList, error) {
+	ns, err := MC.MetricsV1beta1().NodeMetricses().List(context.Background(), metav1.ListOptions{})
+	if err != nil {
+		log.Fatalf("Error : %v \n", err)
+		return &v1beta1.NodeMetricsList{}, err
+	}
 
-//	return ns, nil
-//}
+	return ns, nil
+}

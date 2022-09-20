@@ -6,9 +6,10 @@ import (
 
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/clientcmd"
+	metrics "k8s.io/metrics/pkg/client/clientset/versioned"
 )
 
-//var MC *metrics.Clientset
+var MC *metrics.Clientset
 
 var ClientSet *kubernetes.Clientset
 
@@ -26,13 +27,13 @@ func SetupConfig(kubeconfigpath string) {
 		panic(err)
 	}
 
-	//mclientset, err := metrics.NewForConfig(config)
+	mclientset, err := metrics.NewForConfig(config)
 
-	//if err != nil {
-	//	panic(err)
-	//}
+	if err != nil {
+		panic(err)
+	}
 
-	//MC = mclientset
+	MC = mclientset
 	ClientSet = cltset
 
 }

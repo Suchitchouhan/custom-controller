@@ -107,6 +107,26 @@ func GetPodLogsAPI(c *gin.Context) {
 
 }
 
+func GetPodMetriceAPI(c *gin.Context) {
+	var InputPayload payloads.NameSpaceInputPayload
+	if err := c.ShouldBindJSON(&InputPayload); err != nil {
+		log.Println(err)
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	NS, err := kcontrollers.GetPodMetrice(InputPayload.NameSpace)
+	if err != nil {
+		log.Println(err)
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error":   err.Error(),
+			"message": "Failed to Create",
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"Message": NS})
+}
+
 func GetNodesAPI(c *gin.Context) {
 	data, err := kcontrollers.GetNodes()
 	if err != nil {
@@ -139,4 +159,18 @@ func GetNodesDetailsAPI(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"Node": data})
+}
+
+func GetNodeMetrics(c *gin.Context) {
+	data, err := kcontrollers.GetNodeMetricesResource()
+	if err != nil {
+		log.Println(err)
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error":   err.Error(),
+			"message": "Failed",
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"Node": data})
+
 }
