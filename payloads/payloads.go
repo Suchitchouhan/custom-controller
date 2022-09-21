@@ -3,6 +3,7 @@ package payloads
 import (
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/metrics/pkg/apis/metrics/v1beta1"
 )
 
 type KNameSpace struct {
@@ -102,4 +103,10 @@ type KServices struct {
 	CreationTimestamp metav1.Time        `json:"creationTimestamp"`
 	Labels            map[string]string  `json:"labels"`
 	Spec              corev1.ServiceSpec `json:"spec"`
+}
+
+type KPodMetric struct {
+	Pod         v1beta1.PodMetrics `json:"pod"`
+	TotalMemory int                `json:"totalmemory"`
+	TotalCpu    float64            `json:"totalcpu"`
 }
