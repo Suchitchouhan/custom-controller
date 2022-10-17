@@ -5,12 +5,18 @@ import (
 
 	"kubecontroller/controllers"
 	"kubecontroller/kcontrollers"
+	"kubecontroller/models"
 	"os"
+
+	"kubecontroller/cronjobs"
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	// metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
+
+//docker run --name=kubecontrollermysql -e MYSQL_DATABASE=kubecontrollerdb -e MYSQL_USER=kubeuser -e MYSQL_PASSWORD=xrock@971768 -e MYSQL_RANDOM_ROOT_PASSWORD=yes -d mysql:latest
+//docker run --name=kubecontrollermysql -e MYSQL_DATABASE=kubecontrollerdb -e MYSQL_USER=kubeuser -e MYSQL_PASSWORD=xrock@971768 -e MYSQL_ROOT_PASSWORD=xrock -p 3306:3306 -d mysql:latest
 
 func main() {
 	err := godotenv.Load(".env")
@@ -19,6 +25,8 @@ func main() {
 		panic("Error loading .env file")
 	}
 	kcontrollers.SetupConfig(os.Getenv("KUBECONFIG"))
+	models.ConnectDatabase(os.Getenv("DATABASE"), os.Getenv("DBHOST"), os.Getenv("DBPORT"), os.Getenv("DBUSERNAME"), os.Getenv("DBPASSWORD"))
+	cronjobs.RunCronjob()
 
 	r := gin.Default()
 	r.Use(gin.Logger())
